@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 環境設定 (機密資訊)
+.env
+.db_secret
+
+# IDE
+.vscode/
+.idea/
+
+# 虛擬環境
+venv/
+oxidized/.env

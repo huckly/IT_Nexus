@@ -1,0 +1,73 @@
+# IT Nexus - 任務列表
+
+## 已完成 ✅
+
+- [x] 初始化專案目錄 `~/dotfiles/workspaces/IT_Nexus`
+- [x] 建立 `.agent` 目錄與核心文件
+- [x] 更新 `~/dotfiles/workspaces/PROJECTS.md` 索引
+- [x] 審查實作計畫 (可行性評估)
+- [x] **v5.2 最終可行性檢討與修正**
+- [x] **v5.3 架構強化與運維優化**
+- [x] **v5.4 專業化與標準化**
+- [x] **正式部署 (Deployment)**
+    - [x] LibreNMS → NetBox 同步 (100 台設備)
+    - [x] NetBox → GLPI 同步
+    - [x] Device Role 動態分類 (Server/Switch/Firewall/NAS/UPS)
+    - [x] GLPI 自動工單 (LibreNMS Alert → GLPI Ticket)
+- [x] **GLPI 問題排除**
+    - [x] 修正 Role Mapping (Server → Computer)
+    - [x] 確認 GLPI API 正確端點
+- [x] **LibreNMS Interface 同步**
+    - [x] 建立 `sync_librenms_interfaces.py` v1
+    - [x] 修正 `utils.py` 依賴問題 (改為獨立腳本)
+    - [x] 修正 Type Mapping (`10base-t` 無效、VLAN/LAG 分類)
+    - [x] v2 重寫：加入實體介面白名單過濾
+    - [x] v3 重寫：Clean Sync 策略 + `/devices/:id/ports` API
+    - [x] MAC Address 同步 (NetBox v4.2+ 獨立物件)
+    - [x] Primary IPv4 同步 (含 Management 虛擬介面 fallback)
+    - [x] 全設備同步 (54 台, 1024 Interface, 0 錯誤)
+    - [x] NetBox UI 驗證
+- [x] **IP 地址同步**
+    - [x] 同步設備 Primary IP 至 NetBox (54/56 台)
+    - [x] 綁定 IP 到對應的 Interface
+    - [x] IPv4 格式驗證 (排除 hostname)
+- [x] **專案收尾**
+    - [x] 清理 debug 腳本
+    - [x] 更新 MAINTENANCE.md 文件
+    - [x] 建立 Interface Sync Systemd 排程
+    - [x] 確認 `utils.py` 仍被其他腳本使用 (不刪除)
+    - [x] 更新 task.md / walkthrough.md
+    - [x] Git commit & push (Private Repo)
+- [x] **公開儲存庫同步** (Open Source Release)
+    - [x] 驗證 GitHub Remote (`it_nexus`)
+    - [x] 執行 `scripts/sync_it_nexus.sh` 推送至 `huckly/IT_Nexus`
+- [x] **Phase 1: 立即改善 P0 (Hybrid Sync + Oxidized)**
+    - [x] **建立即時同步機制 (Webhook)**
+        - [x] 設定 LibreNMS (7.120) API Transport -> NetBox (7.32)
+        - [x] 開發 `scripts/webhook_receiver.py` (Flask)
+        - [x] 部署 Receiver Service (NetBox Server, 7.32)
+    - [x] **優化定時同步 (Frequency)**
+        - [x] 修改 `netbox-sync-librenms.timer` (02:00 -> 00/4:00)
+    - [x] **變更主動通知 (Awareness)**
+        - [x] 擴充 `utils.py`: `send_notification`
+        - [x] 整合通知至 Receiver 與 Sync Script
+    - [x] **導入 Oxidized 組態備份 (Tracking)**
+        - [x] 建立 `oxidized/docker-compose.yml`
+        - [x] 部署至 **LibreNMS Server (198.51.100.1)**
+        - [x] 設定 Git Output (Local Repo)
+
+## 待辦 📋
+
+- [x] **Phase 2: 短期目標 P1 (運維閉環)**
+    - [x] **工單自動化閉環** (Recovery Auto-Close)
+        - [x] 改造 `librenms_alert_glpi.py`: 支援 Search & Update
+        - [x] 處理 Recovery State: 自動設為已解決
+    - [x] **修正 LibreNMS Sync 缺漏** (New Device Issue)
+        - [x] Debug: 確認 Webhook Receiver 參數傳遞問題
+        - [x] Fix: `sync_librenms_to_netbox.py` 支援 `--device` 與強制建立
+    - [x] **整合即時通訊 (IM)** (LINE/Teams)
+        - [x] 建立 IM Notification Script (Webhook)
+    - [ ] **擴充告警範圍** (CPU/Mem/Env)
+- [ ] **Phase 3: 中長期目標 P2 (決策支援)**
+    - [ ] **Grafana 管理儀表板**
+    - [ ] **SLA / 保固報表**

@@ -1,0 +1,15 @@
+[Unit]
+Description=LibreNMS Webhook Receiver for NetBox Sync
+After=network.target
+
+[Service]
+User=netbox
+Group=netbox
+WorkingDirectory=/opt/netbox/scripts
+Environment="PATH=/opt/netbox/scripts/venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/opt/netbox/scripts/venv/bin/python3 webhook_receiver.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

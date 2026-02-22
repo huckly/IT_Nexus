@@ -1,0 +1,6 @@
+[Unit]
+Description=IT Nexus 同步失敗通知: %i
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'echo "IT Nexus 同步服務 %i 執行失敗，請檢查 journalctl -u %i" | /usr/bin/mail -s "[IT Nexus 告警] 同步失敗: %i" mis1@example.com'

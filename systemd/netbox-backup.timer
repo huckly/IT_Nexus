@@ -1,0 +1,10 @@
+[Unit]
+Description=IT Nexus 定時備份: NetBox 每日 01:00
+
+[Timer]
+OnCalendar=*-*-* 01:00:00
+RandomizedDelaySec=60
+Persistent=true
+
+[Install]
+WantedBy=timers.target
