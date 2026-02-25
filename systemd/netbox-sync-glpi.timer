@@ -1,0 +1,10 @@
+[Unit]
+Description=IT Nexus 定時同步: NetBox -> GLPI (每日 03:00)
+
+[Timer]
+OnCalendar=*-*-* 03:00:00
+RandomizedDelaySec=60
+Persistent=true
+
+[Install]
+WantedBy=timers.target

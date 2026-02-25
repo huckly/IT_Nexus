@@ -1,0 +1,14 @@
+[Unit]
+Description=IT Nexus 備份: NetBox 資料庫與設定檔
+After=network.target postgresql.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/netbox/scripts/backup_netbox.sh
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

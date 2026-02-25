@@ -1,0 +1,59 @@
+---
+username: mis1
+password: "Bl@ckCat"
+model: ciscosmb
+interval: 3600
+use_syslog: false
+debug: false
+threads: 30
+timeout: 20
+retries: 3
+prompt: !ruby/regexp /^([\w.@-]+[#>]\s?)$/
+rest: 0.0.0.0:8888
+next_adds_job: false
+
+vars:
+  enable: "Bl@ckCat"
+  ssh_kex: "diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1"
+  ssh_encryption: "aes128-cbc,aes192-cbc,aes256-cbc,3des-cbc,aes128-ctr,aes192-ctr,aes256-ctr"
+
+groups:
+  default:
+    username: mis1
+    password: "Bl@ckCat"
+
+models:
+  cisco:
+    vars:
+      enable: "Bl@ckCat"
+
+input:
+  default: ssh, telnet
+  debug: false
+  ssh:
+    secure: false
+
+output:
+  default: git
+  git:
+    user: Oxidized
+    email: oxidized@example.com
+    repo: "/var/lib/oxidized/git-repos/default.git"
+
+source:
+  default: http
+  debug: false
+  http:
+    url: http://198.51.100.1/api/v0/oxidized
+    map:
+      name: ip
+      model: os
+      group: group
+    headers:
+      X-Auth-Token: fb6761406b089f0fda6a465468a40fe3
+
+hooks:
+  push_to_remote:
+    type: githubrepo
+    events: [post_store]
+    remote_repo: origin/master

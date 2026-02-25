@@ -1,0 +1,24 @@
+[Unit]
+Description=IT Nexus 同步: LibreNMS -> NetBox
+After=network.target postgresql.service
+OnFailure=sync-failure-notify@%n.service
+
+[Service]
+Type=oneshot
+User=netbox
+Group=netbox
+WorkingDirectory=/opt/netbox/scripts
+EnvironmentFile=/opt/netbox/scripts/.env
+ExecStart=/opt/netbox/scripts/venv/bin/python3 /opt/netbox/scripts/sync_librenms_to_netbox.py
+StandardOutput=journal
+StandardError=journal
+
+# 安全硬化 (Security Hardening)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

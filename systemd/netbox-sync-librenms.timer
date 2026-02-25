@@ -1,0 +1,10 @@
+[Unit]
+Description=IT Nexus 定時同步: LibreNMS -> NetBox (每日 02:00)
+
+[Timer]
+OnCalendar=*:00/15
+RandomizedDelaySec=60
+Persistent=true
+
+[Install]
+WantedBy=timers.target

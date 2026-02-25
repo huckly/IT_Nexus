@@ -1,0 +1,6 @@
+# IT Nexus v5.2 同步腳本 Python 相依套件
+requests>=2.31.0
+pynetbox>=7.3.3
+python-dotenv>=1.0.0
+python-slugify>=8.0.0
+flask
